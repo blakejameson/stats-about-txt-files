@@ -141,11 +141,18 @@ public class App {
                 line = line.replace("!", "");
                 line = line.replace("?","");
                 line = line.replace("''", "");
+                line = line.replace("(", "");
+                line = line.replace(")", "");
                 String[] words = line.split(" ");
                 String[] lowerCaseWords = new String[words.length];
                 
                 for (int i =0; i < words.length;i++){
+                    if (words[i].equals("I") || words[i].equals("I'm") || words[i].equals("I've")){
+                        lowerCaseWords[i] = words[i];
+                    }
+                    else{
                     lowerCaseWords[i] = words[i].toLowerCase();
+                    }
                 }
                 allWords.addAll(Arrays.asList(lowerCaseWords));
             }
@@ -162,7 +169,7 @@ public class App {
         //findMostPopularWord(wordCount);
 
 
-        topNWords(wordCount, 3);
+        topNWords(wordCount, 100);
         sc.close();
     }}
 
