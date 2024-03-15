@@ -1,4 +1,3 @@
-import java.io.IOException;
 import java.nio.file.FileSystems;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -131,12 +130,12 @@ public class App {
         Scanner sc = new Scanner(System.in);
         HashMap<String, Integer> wordCount = new HashMap<>();
         
-        String current = "";
         File folder = new File(FileSystems.getDefault().getPath(new String()).toAbsolutePath().getParent() + "/input");
         File[] listOfFiles = folder.listFiles();
         ArrayList<String> allWords = new ArrayList<>();
+        BufferedReader reader;
         for (File file: listOfFiles){
-            BufferedReader reader = new BufferedReader(new FileReader(file.getAbsolutePath()));
+            reader = new BufferedReader(new FileReader(file.getAbsolutePath()));
             
             String line;
             while ((line = reader.readLine()) != null){
@@ -160,7 +159,9 @@ public class App {
                 }
                 allWords.addAll(Arrays.asList(lowerCaseWords));
             }
+            reader.close();
         }
+        
         for (String word:allWords){
             if (wordCount.containsKey(word)){
                 wordCount.put(word, wordCount.get(word)+1);
@@ -190,7 +191,7 @@ public class App {
                     System.out.println("Enter the amount of words you'd like returned. For example, enter 5 to see the top 5 words.\n");
                     int word_input = sc.nextInt();
                     sc.nextLine();
-                    
+       
                     topNWords(wordCount, word_input);
                     break;
 
