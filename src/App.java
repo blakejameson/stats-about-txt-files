@@ -10,6 +10,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.BufferedReader;
 import java.util.HashMap;
+import java.util.InputMismatchException;
 
 public class App {
     public static void findMostPopularWord(HashMap<String,Integer> wordCount){
@@ -28,7 +29,6 @@ public class App {
             maxCount = value;
             break;
         }
-
         for (int value : wordCount.values()) {
             maxCount = value;
             break;
@@ -83,6 +83,7 @@ public class App {
 
         Iterator<Integer> iterator = valuesPresent.descendingIterator();
         int values_counted_so_far = 0;
+        System.out.println("\nHere are the top words and their counts.\n\n");
         while (values_counted_so_far < n){
             while (iterator.hasNext() && values_counted_so_far < n) {
                 Integer next = iterator.next();
@@ -97,7 +98,6 @@ public class App {
         if (values_counted_so_far > n){
             System.out.println("\nThere were multiple words tied for the last count, so all the words with that count were displayed.\n");
         }
-        
     }
 
     public static ArrayList<String> tiedFirst(HashMap<String,Integer> wordCount, int value){
@@ -121,6 +121,10 @@ public class App {
             }
         }
         return count;
+    }
+
+    public static void mainMenu(){
+        System.out.println("Here are your options for the program:\n\nEnter 1 to see the most popular word amongst the files\nEnter 2 to see the most frequent words\nEnter 3 to exit the program\n\n");
     }
 
     public static void main(String[] args) throws Exception {
@@ -166,10 +170,50 @@ public class App {
             }
         }
         
-        //findMostPopularWord(wordCount);
+        boolean active = true;
+        while (active) {
 
+            mainMenu();
+            try{
+            String input_raw = sc.nextLine();
+            int input = Integer.parseInt(input_raw);
+            if (input!= 1 && input!=2 && input!=3){
+                System.out.println("You must select from options 1-3.\n\n");
+                continue;
+            }
+            switch (input) {
+                case 1:
+                    findMostPopularWord(wordCount);
+                    break;
 
-        topNWords(wordCount, 100);
+                case 2:
+                    System.out.println("Enter the amount of words you'd like returned. For example, enter 5 to see the top 5 words.\n");
+                    int word_input = sc.nextInt();
+                    sc.nextLine();
+                    
+                    topNWords(wordCount, word_input);
+                    break;
+
+                case 3:
+                    active = false;
+                    System.out.println("You will now exit the program. Have a nice day!!\n\n");
+                    break;
+                default:
+                    break;
+                }
+            }
+
+            catch(InputMismatchException e){
+                System.out.println("Invalid input. A number is required to be entered.\n");
+                sc.next();
+            }
+
+            catch(NumberFormatException nfe){
+                System.out.println("Invalid input. A number is required to be entered.\n");
+                
+            }
+        }
+        
         sc.close();
     }}
 
