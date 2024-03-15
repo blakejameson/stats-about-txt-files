@@ -15,7 +15,7 @@ public class App {
     public static void findMostPopularWord(HashMap<String,Integer> wordCount){
         System.out.println();
         if (wordCount.size() == 0){
-            System.out.println("There are no words in the map.");
+            System.out.println("There were no words found");
             return;
         }
         int maxCount = 0;
@@ -215,6 +215,5 @@ public class App {
         }
         
         sc.close();
-    }}
-
-
+    }
+}
