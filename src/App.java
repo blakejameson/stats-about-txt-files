@@ -93,7 +93,6 @@ public class App {
                 }
             }
         }
-
         if (values_counted_so_far > n){
             System.out.println("\nThere were multiple words tied for the last count, so all the words with that count were displayed.\n");
         }
